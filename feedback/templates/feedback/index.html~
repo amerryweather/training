@@ -1,0 +1,10 @@
+{% extends 'feedback/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block body_block %}
+
+		<h1>Test!</h1>
+
+{% endblock %}
