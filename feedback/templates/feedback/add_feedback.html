@@ -1,0 +1,11 @@
+{% extends 'feedback/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% block title %}Add Feedback{% endblock %}
+
+{% block body_block %}
+<br />
+		{% crispy form %}
+
+{% endblock %}

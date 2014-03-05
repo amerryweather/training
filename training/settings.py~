@@ -30,10 +30,11 @@ TEMPLATE_DIRS = (
 )
 
 # Static file directories
-#STATIC_PATH = os.path.join(PROJECT_PATH,'static')
+# Tuples for static content directories
+STATIC_ROOT = os.path.join(BASE_DIR, 'common_static')
+STATIC_PATH = os.path.join(PROJECT_PATH,'static')
 STATICFILES_DIRS = (
-    #STATIC_PATH,
-    os.path.join(BASE_DIR, "common_static"),
+    STATIC_PATH,
 )
 
 

@@ -41,7 +41,7 @@ class Attendee(models.Model):
     phone_number = models.CharField(max_length=20, blank=True)
     sex = models.CharField(max_length=1)
     created = models.DateTimeField(blank=True, null=True)
-    experience = models.CharField(max_length=1)
+    experience = models.IntegerField(max_length=1)
     
     def __unicode__(self):
     	full_name = self.first_name + ' ' + self.last_name
@@ -120,6 +120,7 @@ class Company(models.Model):
     class Meta:
         managed = False
         db_table = 'company'
+        verbose_name_plural = 'companies'
 
 class DjangoAdminLog(models.Model):
     id = models.IntegerField(primary_key=True)

@@ -4,7 +4,7 @@
 {% block title %}Home{% endblock %}
 
 {% block body_block %}
-
-		<h1>Test!</h1>
+<br />
+		<a href="/feedback/add_category/" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-pencil"></span> Add Feedback</a>
 
 {% endblock %}
