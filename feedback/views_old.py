@@ -17,16 +17,17 @@ def add_feedback(request):
 	context_dict = {}
 	
 	if request.method == 'POST':
-		attendee_form = AttendeeForm(request.POST)
+		form = AttendeeForm(request.POST)
 		
-		if attendee_form.is_valid():
-			attendee_obj = attendee_form.save(commit=False)
-			#attendee_obj.company_id = 1
-			#attendee_obj.role_id = 1
-			attendee_obj.save()
+		if form.is_valid():
+			attendee = form.save(commit=False)
+			#attendee.attendee_id = 2
+			#attendee.company_id = 1
+			#attendee.role_id = 1
+			#attendee.save()
 			return HttpResponseRedirect('/feedback/')
 		else:
-			return HttpResponse(attendee_form.errors)
+			return HttpResponse(form.errors)
 	else:
 		form = AttendeeForm()
 	

@@ -32,7 +32,7 @@ class AnswerOffered(models.Model):
         db_table = 'answer_offered'
 
 class Attendee(models.Model):
-    attendee_id = models.IntegerField(primary_key=True)
+    attendee_id = models.AutoField(primary_key=True)
     company = models.ForeignKey('Company')
     role = models.ForeignKey('Role')
     first_name = models.CharField(max_length=25)
@@ -40,8 +40,8 @@ class Attendee(models.Model):
     email = models.CharField(max_length=45, blank=True)
     phone_number = models.CharField(max_length=20, blank=True)
     sex = models.CharField(max_length=1)
-    created = models.DateTimeField(blank=True, null=True)
-    experience = models.CharField(max_length=1)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    experience = models.IntegerField()
     
     def __unicode__(self):
     	full_name = self.first_name + ' ' + self.last_name

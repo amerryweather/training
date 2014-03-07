@@ -12,11 +12,13 @@ class AttendeeAdmin(admin.ModelAdmin):
 				 	'role',
 				 	'created')
 				 	
+	form = AttendeeForm
+				 	
 class CompanyAdmin(admin.ModelAdmin):
 	list_display = ('name', 'industry', 'postcode')
 
 # Register your models here.
-admin.site.register(Attendee)
-admin.site.register(Company)
+admin.site.register(Attendee, AttendeeAdmin)
+admin.site.register(Company, CompanyAdmin)
 admin.site.register(Role)
 admin.site.register(TrainingType)

@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from feedback.models import Attendee
 from feedback.forms import AttendeeForm
 
@@ -17,17 +17,16 @@ def add_feedback(request):
 	context_dict = {}
 	
 	if request.method == 'POST':
-		form = AttendeeForm(request.POST)
+		attendee_form = AttendeeForm(request.POST)
 		
-		if form.is_valid():
-			attendee = form.save(commit=False)
-			#attendee.attendee_id = 2
-			#attendee.company_id = 1
-			#attendee.role_id = 1
-			#attendee.save()
+		if attendee_form.is_valid():
+			attendee_obj = attendee_form.save(commit=False)
+			#attendee_obj.company_id = 1
+			#attendee_obj.role_id = 1
+			attendee_obj.save()
 			return HttpResponseRedirect('/feedback/')
 		else:
-			return HttpResponseRedirect('/feedback/index.html')
+			return HttpResponse(attendee_form.errors)
 	else:
 		form = AttendeeForm()
 	

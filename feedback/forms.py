@@ -1,26 +1,58 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from feedback.models import Attendee
+from feedback.models import Attendee, Company, Role
+from feedback.widgets import AddAnotherWidgetWrapper
+
+# Class to override ModelChoiceForm fields.
+# This allows access to the ID
+
+class CompanyModelChoiceField(forms.ModelChoiceField):
+	def label_from_instance(self, obj):
+		return obj
+		
+class RoleModelChoiceField(forms.ModelChoiceField):
+	def label_from_instance(self, obj):
+		return obj
 
 class AttendeeForm(forms.ModelForm):
 
+	#attendee_id = forms.IntegerField(widget=forms.HiddenInput(),label="Attendee ID")
+
+	first_name = forms.CharField(max_length=25)
+	last_name  = forms.CharField(max_length=25)
+	
+	# Foreign keys
+	
+	company = forms.ModelChoiceField(
+		queryset = Company.objects.all(),
+		label = 'Company Name',
+		widget = AddAnotherWidgetWrapper(
+			forms.Select(), Company)
+	)
+	
+	role = forms.ModelChoiceField(
+		queryset = Role.objects.all(),
+		label = 'Job Role'
+	)
+	
+	email	   = forms.EmailField(max_length=45)
+	phone_number = forms.CharField(max_length=20)
+	
 	GENDER_CHOICES = (
 		('M', 'Male'),
 		('F', 'Female'),
 	)
-
-	first_name = forms.CharField(max_length=25)
-	last_name  = forms.CharField(max_length=25)
-	email	   = forms.EmailField(max_length=45)
-	phone_number = forms.CharField(max_length=20)
+	EXPERIENCE_CHOICES = (
+		('Y', 'Yes'),
+		('N', 'No'),
+	)
 	sex = forms.ChoiceField(choices=GENDER_CHOICES)
-	experience = forms.CharField(max_length=1)
+	experience = forms.BooleanField(label = 'Previous experience?')
+	
 	
 	# hidden fields
-	attendee_id = forms.IntegerField(widget=forms.HiddenInput())
-	company_id  = forms.IntegerField(widget=forms.HiddenInput())
-	role_id     = forms.IntegerField(widget=forms.HiddenInput())
+	#attendee_id = forms.IntegerField(widget=forms.HiddenInput(), initial=3)
 	
 	def __init__(self, *args, **kwargs):
 		super(AttendeeForm, self).__init__(*args, **kwargs)
@@ -34,5 +66,14 @@ class AttendeeForm(forms.ModelForm):
 	
 	class Meta:
 		model = Attendee
-		fields = ['first_name', 'last_name', 'email',
-				  'phone_number', 'sex', 'experience']
+		fields = [#'attendee_id',
+				  'first_name', 
+				  'last_name', 
+				  'email',
+				  'phone_number', 
+				  'sex', 
+				  'experience',
+				  'company',
+				  'role']
+				  
+				  

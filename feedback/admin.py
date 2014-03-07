@@ -1,5 +1,6 @@
 from django.contrib import admin
 from feedback.models import Attendee, Company, Role, TrainingType
+from feedback.forms import AttendeeForm
 
 
 class TrainingTypeAdmin(admin.ModelAdmin):
@@ -11,6 +12,8 @@ class AttendeeAdmin(admin.ModelAdmin):
 				 	'company',
 				 	'role',
 				 	'created')
+				 	
+	form = AttendeeForm
 				 	
 class CompanyAdmin(admin.ModelAdmin):
 	list_display = ('name', 'industry', 'postcode')
