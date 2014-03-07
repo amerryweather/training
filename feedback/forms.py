@@ -2,7 +2,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from feedback.models import Attendee, Company, Role
-from feedback.widgets import AddAnotherWidgetWrapper
+from tekextensions.widgets import SelectWithPopUp
 
 # Class to override ModelChoiceForm fields.
 # This allows access to the ID
@@ -27,8 +27,7 @@ class AttendeeForm(forms.ModelForm):
 	company = forms.ModelChoiceField(
 		queryset = Company.objects.all(),
 		label = 'Company Name',
-		widget = AddAnotherWidgetWrapper(
-			forms.Select(), Company)
+		widget = SelectWithPopUp
 	)
 	
 	role = forms.ModelChoiceField(
