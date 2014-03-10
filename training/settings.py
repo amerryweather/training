@@ -64,7 +64,6 @@ INSTALLED_APPS = (
     'feedback',
     'south',
     'crispy_forms',
-    'tekextensions',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -84,7 +83,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.core.context_processors.static",
 	"django.core.context_processors.tz",
 	"django.contrib.messages.context_processors.messages",
-	'tekextensions.context_processors.admin_media_prefix'
 	
 )
 

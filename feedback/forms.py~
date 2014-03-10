@@ -2,22 +2,8 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from feedback.models import Attendee, Company, Role
-from tekextensions.widgets import SelectWithPopUp
-
-# Class to override ModelChoiceForm fields.
-# This allows access to the ID
-
-class CompanyModelChoiceField(forms.ModelChoiceField):
-	def label_from_instance(self, obj):
-		return obj
-		
-class RoleModelChoiceField(forms.ModelChoiceField):
-	def label_from_instance(self, obj):
-		return obj
 
 class AttendeeForm(forms.ModelForm):
-
-	#attendee_id = forms.IntegerField(widget=forms.HiddenInput(),label="Attendee ID")
 
 	first_name = forms.CharField(max_length=25)
 	last_name  = forms.CharField(max_length=25)
@@ -26,8 +12,7 @@ class AttendeeForm(forms.ModelForm):
 	
 	company = forms.ModelChoiceField(
 		queryset = Company.objects.all(),
-		label = 'Company Name',
-		#widget = SelectWithPopUp
+		label = 'Company Name'
 	)
 	
 	role = forms.ModelChoiceField(
@@ -35,7 +20,9 @@ class AttendeeForm(forms.ModelForm):
 		label = 'Job Role'
 	)
 	
-	email	   = forms.EmailField(max_length=45)
+	# -- End foreign keys
+	
+	email = forms.EmailField(max_length=45)
 	phone_number = forms.CharField(max_length=20)
 	
 	GENDER_CHOICES = (
@@ -43,16 +30,16 @@ class AttendeeForm(forms.ModelForm):
 		('F', 'Female'),
 	)
 	EXPERIENCE_CHOICES = (
-		('Y', 'Yes'),
-		('N', 'No'),
+		('Yes', 'Yes'),
+		('No', 'No'),
 	)
 	sex = forms.ChoiceField(choices=GENDER_CHOICES)
-	experience = forms.BooleanField(label = 'Previous experience?')
+	experience = forms.ChoiceField(
+		label = 'Previous experience?',
+		widget = forms.RadioSelect(),
+		choices = EXPERIENCE_CHOICES)
 	
-	
-	# hidden fields
-	#attendee_id = forms.IntegerField(widget=forms.HiddenInput(), initial=3)
-	
+	# Crispy forms section
 	def __init__(self, *args, **kwargs):
 		super(AttendeeForm, self).__init__(*args, **kwargs)
 		self.helper = FormHelper()
@@ -61,12 +48,11 @@ class AttendeeForm(forms.ModelForm):
 		self.helper.form_method = 'post'
 		self.helper.form_action = 'submit_survey'
 		
-		self.helper.add_input(Submit('submit', 'Submit'))
+		self.helper.add_input(Submit('submit', 'Continue'))
 	
 	class Meta:
 		model = Attendee
-		fields = [#'attendee_id',
-				  'first_name', 
+		fields = ['first_name', 
 				  'last_name', 
 				  'email',
 				  'phone_number', 
@@ -75,4 +61,8 @@ class AttendeeForm(forms.ModelForm):
 				  'company',
 				  'role']
 				  
-				  
+class FeedbackForm(forms.ModelForm):
+
+	class Meta:
+		model = 
+	pass		  

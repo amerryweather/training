@@ -1,0 +1,18 @@
+{% extends 'feedback/base.html' %}
+{% load static %}
+
+{% block title %}Attendee{% endblock %}
+
+{% block body_block %}
+<br />
+		{% if attendees %}
+			<ul>
+				{% for attendee in attendees %}
+				{{ attendee.first_name }} {{ attendee.last_name }}
+				{% endfor %}
+			</ul>
+		{% else %}
+			<strong>There are no attendees to present.</strong>
+		{% endif %}
+
+{% endblock %}

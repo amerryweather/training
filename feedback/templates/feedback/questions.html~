@@ -1,0 +1,23 @@
+{% extends 'feedback/base.html' %}
+{% load static %}
+
+{% block title %}Questions{% endblock %}
+
+{% block body_block %}
+<br />
+<h2>{{ a.first_name }}
+		{% if questions %}
+			<ul>
+				{% for question in questions %}
+				<li>{{ question.question_id }} - {{ question.question }} <br /> (
+					{% for answer in offered_answers %}
+						{{ answer.answer_text }} / 
+					{% endfor %})
+				</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<strong>There are no questions to present.</strong>
+		{% endif %}
+
+{% endblock %}

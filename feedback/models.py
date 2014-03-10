@@ -28,8 +28,8 @@ class AnswerOffered(models.Model):
     	return self.answer_text
     
     class Meta:
-        managed = False
         db_table = 'answer_offered'
+        verbose_name_plural = 'offered answers'
 
 class Attendee(models.Model):
     attendee_id = models.AutoField(primary_key=True)
@@ -41,13 +41,12 @@ class Attendee(models.Model):
     phone_number = models.CharField(max_length=20, blank=True)
     sex = models.CharField(max_length=1)
     created = models.DateTimeField(auto_now_add=True, null=True)
-    experience = models.IntegerField()
+    experience = models.CharField(max_length=5)
     
     def __unicode__(self):
     	full_name = self.first_name + ' ' + self.last_name
     	return full_name
     class Meta:
-        managed = False
         db_table = 'attendee'
 
 class AuthGroup(models.Model):
@@ -157,6 +156,7 @@ class Form(models.Model):
     attendee = models.ForeignKey(Attendee)
     training_type = models.ForeignKey('TrainingType')
     date = models.DateField()
+    
     class Meta:
         managed = False
         db_table = 'form'
@@ -170,8 +170,12 @@ class FormQuestionAnswer(models.Model):
         db_table = 'form_question_answer'
 
 class Question(models.Model):
-    question_id = models.IntegerField(unique=True)
+    question_id = models.IntegerField(primary_key=True)
     question = models.CharField(max_length=45)
+    
+    def __unicode__(self):
+    	return self.question
+    
     class Meta:
         managed = False
         db_table = 'question'

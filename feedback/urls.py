@@ -3,6 +3,7 @@ from feedback import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
-    url(r'^add_feedback/', views.add_feedback, name='add_feedback'),
-    url(r'^add/(?P<model_name>\w+)/?$', 'tekextensions.views.add_new_model'),
+    url(r'^add_attendee/', views.add_attendee, name='add_attendee'),
+    url(r'^add_feedback/', views.feedback_form, name='feedback_form'),
+    url(r'^questions/(?P<attendee_id>\d+)/', views.questions, name='questions'),
 )
