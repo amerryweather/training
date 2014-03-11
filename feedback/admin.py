@@ -12,7 +12,8 @@ class AnswerOfferedAdmin(admin.ModelAdmin):
 	fields = ['answer_text']
 	
 class AttendeeAdmin(admin.ModelAdmin):
-	list_display = ('first_name',
+	list_display = ('attendee_id',
+					'first_name',
 				 	'last_name',
 				 	'company',
 				 	'role',
@@ -32,9 +33,12 @@ class CompanyAdmin(admin.ModelAdmin):
 	list_display = ('name', 'industry', 'postcode')
 	
 class FormAdmin(admin.ModelAdmin):
-	fields = ['attendee', 'training_type', 'date']
+	list_display = ('attendee', 'training_type','training_date')
+	fields = ['attendee', 'training_type', 'training_date']
+	readonly_fields = ['training_date']
 	
 class QuestionAdmin(admin.ModelAdmin):
+	list_display = ('question_id', 'question')
 	fields = ['question']
 
 # Register your models here.
