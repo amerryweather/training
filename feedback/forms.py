@@ -5,6 +5,13 @@ from crispy_forms.layout import Submit
 from feedback.models import Answer, Attendee, Company, Form, Role, Question, TrainingType
 from django.contrib.admin.widgets import AdminDateWidget
 
+# for datepickers
+def make_custom_datefield(f):
+	if isinstance(f, models.DateField):
+		formfield.widget.format = '%m/%d/%Y'
+		formfield.widget.attrs.update({'class':'datepicker', 'readonly':'true'})
+	return formfield
+
 class AttendeeForm(forms.ModelForm):
 
 	first_name = forms.CharField(max_length=25)
@@ -63,46 +70,40 @@ class AttendeeForm(forms.ModelForm):
 				  'company',
 				  'role']
 				  
-class FeedbackForm(forms.ModelForm):
-
-	attendee = forms.ModelChoiceField(
-		queryset=Attendee.objects.all(),
-		widget=forms.HiddenInput(),
-		label='Attendee',
-		initial=1
+class TrainingDateForm(forms.Form):
+	
+	training_date = forms.DateField(
+		label='Training Date',
+		widget=forms.TextInput(attrs=
+			{
+				'id':'datepicker'
+			})
 	)
+				
+class QuestionForm(forms.Form):
+	"""
+	Will build the whole form statically for now.
+	Big form! Creates row in Form table and captures all survey answers.
+	""" 
+	
+	# For creating an entry in "form"
+
 	training_type = forms.ModelChoiceField(
 		queryset=TrainingType.objects.all(),
-		label='Training Type'
+		label='Training Type',
+		initial=1
+		#widget=forms.RadioSelect
 	)
 	
-	class Meta:
-		model = Form
-		fields = ['attendee', 'training_type']
-		
-	# Crispy forms section
-	def __init__(self, *args, **kwargs):
-		super(FeedbackForm, self).__init__(*args, **kwargs)
-		self.helper = FormHelper()
-		self.helper.form_id = 'id-feedbackForm'
-		self.helper.form_class = ''
-		self.helper.form_method = 'post'
-		self.helper.form_action = 'submit_survey'
-		
-		self.helper.add_input(Submit('submit', 'New Feedback'))
-		
-''' 
-Will build the whole form rigidly for now.
-Processing and saving will be performed in views.py.
-''' 		
-class QuestionForm(forms.Form):
+	# Processing answers to questions
+	# TODO: format RadioSelect horizontally
 
 	LIKERT_SCALE = (
-		(1, 'Strongly Agree'),
-		(2, 'Agree'),
-		(3, 'Neutral'),
-		(4, 'Disagree'),
-		(5, 'Strongly Disagree')	
+		('1', 'Strongly Agree'),
+		('2', 'Agree'),
+		('3', 'Neutral'),
+		('4', 'Disagree'),
+		('5', 'Strongly Disagree')	
 	)
 	q1 = forms.ChoiceField(
 		label=Question.objects.get(question_id=1),

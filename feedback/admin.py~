@@ -1,15 +1,27 @@
 from django.contrib import admin
-from feedback.models import Attendee, AnswerOffered, Company, Form, Question, Role, TrainingType
+from feedback.models import Answer, Attendee, AnswerOffered, Company, Form, Question, Role, TrainingType
 from feedback.forms import AttendeeForm
 
 
 class TrainingTypeAdmin(admin.ModelAdmin):
 	pass
+
+class AnswerAdmin(admin.ModelAdmin):
+	list_display = (
+		'answer_id',
+		'answer_offered',
+		'answer_text',
+		'form'
+	)
+	readonly_fields = ['form']
 	
 class AnswerOfferedAdmin(admin.ModelAdmin):
 	list_display = ('answer_offered_id', 'answer_text')
 	ordering = ('answer_offered_id',)
 	fields = ['answer_text']
+	
+class AttendeeInline(admin.TabularInline):
+	model = Attendee
 	
 class AttendeeAdmin(admin.ModelAdmin):
 	list_display = ('attendee_id',
@@ -26,11 +38,11 @@ class AttendeeAdmin(admin.ModelAdmin):
 			  'sex', 
 			  'experience',
 			  'company',
-			  'role']		 	
-	#form = AttendeeForm
+			  'role']
 				 	
 class CompanyAdmin(admin.ModelAdmin):
 	list_display = ('name', 'industry', 'postcode')
+	inlines = [AttendeeInline,]
 	
 class FormAdmin(admin.ModelAdmin):
 	list_display = ('attendee', 'training_type','training_date')
@@ -42,6 +54,7 @@ class QuestionAdmin(admin.ModelAdmin):
 	fields = ['question']
 
 # Register your models here.
+admin.site.register(Answer, AnswerAdmin)
 admin.site.register(AnswerOffered, AnswerOfferedAdmin)
 admin.site.register(Attendee, AttendeeAdmin)
 admin.site.register(Company, CompanyAdmin)

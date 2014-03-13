@@ -1,33 +1,31 @@
 {% extends 'feedback/base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% crispy form a_form.helper %}
 
 {% block title %}Questions{% endblock %}
 
 {% block body_block %}
 <h2>
 {% if attendee %}
-	Feedback for <i>{{ attendee.first_name }}</i>
+	Feedback for <strong>{{ attendee.first_name }} {{ attendee.last_name }}</strong>
 {% else %}
 	No attendee
 {% endif %}
 </h2>
-		<!-- {% if questions %}
-			<ul>
-				{% for question in questions %}
-				<li>{{ question.question_id }} - {{ question.question }} <br /> (
-					{% for answer in offered_answers %}
-						{{ answer.answer_text }} / 
-					{% endfor %})
-				</li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<strong>There are no questions to present.</strong>
-		{% endif %}
-		-->
-		{% crispy f_form %}
-		{% crispy q_form %}
-
+<form>
+	{% csrf_token %}
+	<strong>Training Date:</strong>
+	<input type="text" id="datepicker" class="datepicker">
+	<br /><br />
+	
+</form>
+		{% crispy question_form %}
+		
+<script>
+$("#datepicker").datepicker({
+    todayBtn: "linked",
+    daysOfWeekDisabled: "0,6",
+    autoclose: true,
+    todayHighlight: true
+});</script>
 {% endblock %}

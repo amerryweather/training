@@ -14,7 +14,7 @@ from django.utils.timezone import now
 import datetime
 
 class Answer(models.Model):
-    answer_id = models.IntegerField(primary_key=True)
+    answer_id = models.AutoField(primary_key=True)
     question = models.ForeignKey('Question')
     form = models.ForeignKey('Form')
     answer_offered = models.ForeignKey('AnswerOffered')
@@ -72,7 +72,11 @@ class Form(models.Model):
     form_id = models.AutoField(primary_key=True)
     attendee = models.ForeignKey('Attendee')
     training_type = models.ForeignKey('TrainingType')
-    training_date = models.DateTimeField(auto_now_add=True)
+    training_date = models.DateTimeField(auto_now_add=True, null=True)
+    
+    def __unicode__(self):
+    	f = self.attendee.__unicode__() + ' - ' + self.training_type.__unicode__() + ' ' + self.training_date.__str__()
+    	return f
     
     class Meta:
         db_table = 'form'
