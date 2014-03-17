@@ -11,13 +11,16 @@
     <title>Training - {% block title %}Feedback{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'feedback/css/bootstrap.min.css'%}" rel="stylesheet" media="screen">
+    <!-- ORIGINAL BOOTSTRAP! <link href="{% static 'feedback/css/bootstrap.min.css'%}" rel="stylesheet" media="screen">-->
+    <link href="{% static 'feedback/css/bootstrap-darkly.css'%}" rel="stylesheet" media="screen">
 	<link href="{% static 'feedback/css/bootsrap-responsive.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{% static 'feedback/css/navbar.css' %}" rel="stylesheet">
     
     <!-- JavaScript for DateTimePicker -->
+    <link href="{% static 'feedback/css/datepicker.css' %}" rel="stylesheet">
+    <link href="{% static 'feedback/css/datepicker.less' %}" rel="stylesheet">
     <script src="{% static 'feedback/js/jquery-2.1.0.min.js' %}"></script>
     <script src="{% static '/static/feedback/js/bootstrap-datepicker.js' %}"></script>
     
@@ -37,7 +40,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/feedback/">Training</a>
+            <a class="navbar-brand" href="/feedback/"><img src="{% static 'feedback/daviker.png' %}"> Training</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

@@ -11,7 +11,8 @@
     <title>Training - {% block title %}Feedback{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'feedback/css/bootstrap.min.css'%}" rel="stylesheet" media="screen">
+    <!-- ORIGINAL BOOTSTRAP! <link href="{% static 'feedback/css/bootstrap.min.css'%}" rel="stylesheet" media="screen">-->
+    <link href="{% static 'feedback/css/bootstrap-darkly.css'%}" rel="stylesheet" media="screen">
 	<link href="{% static 'feedback/css/bootsrap-responsive.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -39,7 +40,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/feedback/">Training</a>
+            <a class="navbar-brand" href="/feedback/"><img src="{% static 'feedback/daviker.png' %}"></a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
