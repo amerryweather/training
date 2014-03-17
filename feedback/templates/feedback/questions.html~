@@ -15,14 +15,22 @@
 <form>
 	{% csrf_token %}
 	<strong>Training Date:</strong>
-	<br /><br />
 	<input type="text" id="datepicker" class="datepicker">
+	<br /><br />
 	
 </form>
-		{% crispy question_form %}
-		
+
+<form">
+
+            {% csrf_token %}
+            {{ question_form.as_p }}
+
+            <input type="submit" name="submit" value="Submit Feedback" />
+        </form>
+
+	{% crispy question_form %}
 <script>
-$("#datepicker").datepicker({
+$(".datepicker").datepicker({
     todayBtn: "linked",
     daysOfWeekDisabled: "0,6",
     autoclose: true,

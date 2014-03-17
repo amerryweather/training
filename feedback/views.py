@@ -19,6 +19,7 @@ def create_form(context_dict):
 	new_form = Form()
 	new_form.attendee = context_dict['attendee']
 	new_form.training_type = context_dict['question_form'].cleaned_data.get('training_type')
+	new_form.training_date = context_dict['question_form'].cleaned_data.get('training_date')
 	new_form.save()
 	return new_form
 	
@@ -36,9 +37,14 @@ def add_answer_to_form(q_id, form, ans):
 	new_answer.question = Question.objects.get(question_id=q_id)
 	new_answer.form = form
 	
+	""" Differentiates between Likert scale answers and free text """
+	
 	if ans.isdigit():
 		new_answer.answer_offered = AnswerOffered.objects.get(answer_offered_id=ans)
 	else:
+		# check whether it was filled in, if not set N/A
+		if not ans:
+			ans = 'N/A'
 		new_answer.answer_offered = AnswerOffered.objects.get(answer_offered_id=6)
 		new_answer.answer_text = ans
 	

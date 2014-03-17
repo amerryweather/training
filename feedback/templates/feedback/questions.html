@@ -12,17 +12,10 @@
 	No attendee
 {% endif %}
 </h2>
-<form>
-	{% csrf_token %}
-	<strong>Training Date:</strong>
-	<input type="text" id="datepicker" class="datepicker">
-	<br /><br />
-	
-</form>
 		{% crispy question_form %}
 		
 <script>
-$("#datepicker").datepicker({
+$(".datepicker").datepicker({
     todayBtn: "linked",
     daysOfWeekDisabled: "0,6",
     autoclose: true,

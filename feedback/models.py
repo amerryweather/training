@@ -72,7 +72,7 @@ class Form(models.Model):
     form_id = models.AutoField(primary_key=True)
     attendee = models.ForeignKey('Attendee')
     training_type = models.ForeignKey('TrainingType')
-    training_date = models.DateTimeField(auto_now_add=True, null=True)
+    training_date = models.DateField()
     
     def __unicode__(self):
     	f = self.attendee.__unicode__() + ' - ' + self.training_type.__unicode__() + ' (' + self.training_date.__str__() + ')'

@@ -3,7 +3,6 @@ from django.utils.timezone import now
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from feedback.models import Answer, Attendee, Company, Form, Role, Question, TrainingType
-from django.contrib.admin.widgets import AdminDateWidget
 
 # for datepickers
 def make_custom_datefield(f):
@@ -87,6 +86,15 @@ class QuestionForm(forms.Form):
 	""" 
 	
 	# For creating an entry in "form"
+	
+	training_date = forms.DateField(
+		label='Training Date',
+		widget=forms.TextInput(attrs=
+			{
+				'id':'datepicker',
+				'class':'datepicker'
+			})
+	)
 
 	training_type = forms.ModelChoiceField(
 		queryset=TrainingType.objects.all(),
@@ -105,65 +113,80 @@ class QuestionForm(forms.Form):
 		('4', 'Disagree'),
 		('5', 'Strongly Disagree')	
 	)
+	# Happy with training
 	q1 = forms.ChoiceField(
 		label=Question.objects.get(question_id=1),
 		widget=forms.RadioSelect,
 		choices=LIKERT_SCALE,
 		required=True,
 		)
-		
+	
+	# Refreshments	
 	q2 = forms.ChoiceField(
 		label=Question.objects.get(question_id=2),
 		widget=forms.RadioSelect,
 		choices=LIKERT_SCALE,
 		required=True,
 		)
-		
+	
+	# Support	
 	q3 = forms.ChoiceField(
 		label=Question.objects.get(question_id=3),
 		widget=forms.RadioSelect,
 		choices=LIKERT_SCALE,
 		required=True,
 		)
-		
+	
+	# Recommend	
 	q4 = forms.ChoiceField(
 		label=Question.objects.get(question_id=4),
 		widget=forms.RadioSelect,
 		choices=LIKERT_SCALE,
 		required=True,
 		)
-		
+	
+	# Do well	
 	q5 = forms.CharField(
 		label=Question.objects.get(question_id=5),
 		max_length=45,
+		required=False,
 		)
-		
+	
+	# Do better	
 	q6 = forms.CharField(
 		label=Question.objects.get(question_id=6),
 		max_length=45,
+		required=False,
 		)
-		
+	
+	# Extra mile	
 	q7 = forms.CharField(
 		label=Question.objects.get(question_id=7),
 		max_length=45,
+		required=False,
 		)
-		
+	
+	# Industry publications	
 	q8 = forms.CharField(
 		label=Question.objects.get(question_id=8),
 		max_length=45,
+		required=False,
 		)
-		
+	
+	# Other comments	
 	q9 = forms.CharField(
 		label=Question.objects.get(question_id=9),
 		max_length=45,
+		required=False,
+		widget=forms.Textarea,
 		)
 	
 	# Crispy forms section
 	def __init__(self, *args, **kwargs):
 		super(QuestionForm, self).__init__(*args, **kwargs)
 		self.helper = FormHelper()
-		self.helper.form_id = 'id-questionForm'
-		self.helper.form_class = ''
+		self.helper.form_id = 'id-datepicker'
+		self.helper.form_class = 'id-datepicker'
 		self.helper.form_method = 'post'
 		self.helper.form_action = 'submit_survey'
 		
