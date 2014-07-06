@@ -1,8 +1,9 @@
 from django import forms
-from django.utils.timezone import now
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from feedback.models import Answer, Attendee, Company, Form, Role, Question, TrainingType
+from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
+from django.db.models.fields import related
 
 # for datepickers
 def make_custom_datefield(f):
@@ -19,19 +20,19 @@ class AttendeeForm(forms.ModelForm):
 	# Foreign keys
 	
 	company = forms.ModelChoiceField(
-		queryset = Company.objects.all(),
+		queryset = Company.objects.order_by('name'),
 		label = 'Company Name'
 	)
 	
 	role = forms.ModelChoiceField(
-		queryset = Role.objects.all(),
-		label = 'Job Role'
+		queryset = Role.objects.order_by('job_title'),
+		label = 'Job Role',
 	)
 	
 	# -- End foreign keys
 	
 	email = forms.EmailField(max_length=45)
-	phone_number = forms.CharField(max_length=20)
+	phone_number = forms.CharField(max_length=20, required=False)
 	
 	GENDER_CHOICES = (
 		('M', 'Male'),
@@ -57,6 +58,17 @@ class AttendeeForm(forms.ModelForm):
 		self.helper.form_action = 'submit_survey'
 		
 		self.helper.add_input(Submit('submit', 'Continue'))
+		
+		# RelatedFieldWidgetWrapper section
+		#rel = related.ManyToOneRel(self.instance.role.model, 'role_id')
+		#self.fields['role'].widget = RelatedFieldWidgetWrapper(forms.Select(),Attendee._meta.get_field('role').rel, self.admin_site)
+		
+
+	# RelatedFieldWidgetWrapper media
+	class Media:
+		css = {'all':('/media/css/widgets.css',),}
+		js = ('/admin/jsi18n/',)
+											
 	
 	class Meta:
 		model = Attendee
@@ -148,35 +160,35 @@ class QuestionForm(forms.Form):
 	# Do well	
 	q5 = forms.CharField(
 		label=Question.objects.get(question_id=5),
-		max_length=45,
+		max_length=1000,
 		required=False,
 		)
 	
 	# Do better	
 	q6 = forms.CharField(
 		label=Question.objects.get(question_id=6),
-		max_length=45,
+		max_length=1000,
 		required=False,
 		)
 	
 	# Extra mile	
 	q7 = forms.CharField(
 		label=Question.objects.get(question_id=7),
-		max_length=45,
+		max_length=1000,
 		required=False,
 		)
 	
 	# Industry publications	
 	q8 = forms.CharField(
 		label=Question.objects.get(question_id=8),
-		max_length=45,
+		max_length=1000,
 		required=False,
 		)
 	
 	# Other comments	
 	q9 = forms.CharField(
 		label=Question.objects.get(question_id=9),
-		max_length=45,
+		max_length=1000,
 		required=False,
 		widget=forms.Textarea,
 		)

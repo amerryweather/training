@@ -18,7 +18,7 @@ class Answer(models.Model):
     question = models.ForeignKey('Question')
     form = models.ForeignKey('Form')
     answer_offered = models.ForeignKey('AnswerOffered')
-    answer_text = models.CharField(max_length=45)
+    answer_text = models.CharField(max_length=1000)
     class Meta:
         managed = False
         db_table = 'answer'
@@ -53,7 +53,7 @@ class Attendee(models.Model):
         db_table = 'attendee'
 
 class Company(models.Model):
-    company_id = models.IntegerField(primary_key=True)
+    company_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=45)
     industry = models.CharField(max_length=20, blank=True)
     address_1 = models.CharField(max_length=30, blank=True)
@@ -75,6 +75,7 @@ class Form(models.Model):
     training_date = models.DateField()
     
     def __unicode__(self):
+    	# Joe Bloggs - TouchStar Intermediate (01/02/2014)
     	f = self.attendee.__unicode__() + ' - ' + self.training_type.__unicode__() + ' (' + self.training_date.__str__() + ')'
     	return f
     
@@ -101,7 +102,7 @@ class Question(models.Model):
         db_table = 'question'
 
 class Role(models.Model):
-    role_id = models.IntegerField(primary_key=True)
+    role_id = models.AutoField(primary_key=True)
     job_title = models.CharField(max_length=45)
     technical = models.CharField(max_length=1)
     

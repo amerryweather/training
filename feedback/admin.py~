@@ -20,7 +20,7 @@ class AnswerOfferedAdmin(admin.ModelAdmin):
 	ordering = ('answer_offered_id',)
 	fields = ['answer_text']
 	
-class AttendeeInline(admin.TabularInline):
+class AttendeeInline(admin.StackedInline):
 	model = Attendee
 	
 class AttendeeAdmin(admin.ModelAdmin):
@@ -52,6 +52,12 @@ class FormAdmin(admin.ModelAdmin):
 class QuestionAdmin(admin.ModelAdmin):
 	list_display = ('question_id', 'question')
 	fields = ['question']
+	
+class RoleAdmin(admin.ModelAdmin):
+	
+	def __init__(self, model, admin_site):
+		super(RoleAdmin, self).__init__(model, admin_site)
+		self.form.admin_site = admin_site # capture admin site
 
 # Register your models here.
 admin.site.register(Answer, AnswerAdmin)
@@ -60,5 +66,5 @@ admin.site.register(Attendee, AttendeeAdmin)
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(Form, FormAdmin)
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(Role)
+admin.site.register(Role, RoleAdmin)
 admin.site.register(TrainingType)

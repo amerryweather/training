@@ -9,9 +9,11 @@
     <meta name="author" content="Angie Merryweather">
 
     <title>Training - {% block title %}Feedback{% endblock %}</title>
+    
+    <!-- Google font -->
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap core CSS -->
-    <!-- ORIGINAL BOOTSTRAP! <link href="{% static 'feedback/css/bootstrap.min.css'%}" rel="stylesheet" media="screen">-->
     <link href="{% static 'feedback/css/bootstrap-darkly.css'%}" rel="stylesheet" media="screen">
 	<link href="{% static 'feedback/css/bootsrap-responsive.css' %}" rel="stylesheet">
 
@@ -40,13 +42,13 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/feedback/"><img src="{% static 'feedback/daviker.png' %}"> Training</a>
+            <a class="navbar-brand" href="/feedback/">training feedback</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="http://www.daviker.co.uk/">Daviker</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+              <li class="active"><a href="http://www.angie.io/">angie.io</a></li>
+              <li><a href="/feedback/add_attendee/">Add Feedback</a></li>
+              <li><a href="http://www.eventbrite.co.uk/o/daviker-365893450">Eventbrite</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                 <ul class="dropdown-menu">

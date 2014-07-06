@@ -62,9 +62,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'feedback',
+    'internal',
     'south',
     'crispy_forms',
-    'bootstrap3_datetime',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -104,6 +104,15 @@ DATABASES = {
 		'HOST': '127.0.0.1',
 		'PORT': '3306',
     }
+    
+    'internal': {
+    	'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'internal_training',
+		'USER': 'training',
+		'PASSWORD': 'trainingpass',
+		'HOST': '127.0.0.1',
+		'PORT': '3306',
+	}
 }
 
 # Internationalization
